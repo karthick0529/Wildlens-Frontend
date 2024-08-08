@@ -71,7 +71,7 @@ const Bookings = () => {
               <td>{booking.guestSize}</td>
               <td>{booking.userEmail}</td>
               <td>{booking.phone}</td>
-              <td>vijay</td>
+              <td>Karthick</td>
               </tr>
                 
               ))}

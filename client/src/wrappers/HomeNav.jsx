@@ -100,7 +100,7 @@ const HomeNav = () => {
                    {user && user.role=="user"? (<li className="nav__item">
                       <Link 
                         to="/myBookings" >
-                       My Booking
+                       Booking
                       </Link>
                      
                     </li>):user && user.role=="admin"? ( <Dropdown as={ButtonGroup}>
@@ -118,12 +118,12 @@ const HomeNav = () => {
                 </ul>
               </div>
               <div className="nav__right d-flex align-items-center gap-4">
-                <div className="nav__btns d-flex align-items-center gap-4">
+                <div className="nav__btns d-flex align-items-center gap-4" style={{marginLeft:"10px"}}>
                   {user? (
                   
                     <>
                     
-                      <h5 className="mb-0">{userName}</h5>
+                      <h6 className="mb-0">{userName}</h6>
                       <Button className="btn primary__btn" onClick={logout}>Logout</Button>
                     </>
                   ) : (
