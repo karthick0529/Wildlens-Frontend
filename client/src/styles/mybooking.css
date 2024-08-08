@@ -1,0 +1,11 @@
+.cardBody{
+    height:max-content;
+}
+
+.b-card{
+    font-size: 20px;
+    font-weight: 700;
+}
+span{
+    color: #135D66;
+}

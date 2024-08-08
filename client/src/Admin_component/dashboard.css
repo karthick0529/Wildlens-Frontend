@@ -1,0 +1,7 @@
+
+.ul{
+    text-decoration: none;
+    color: var(--heading-color)!important;
+    font-weight: 500;
+    font-size:1.1rem;
+}

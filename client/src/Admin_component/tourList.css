@@ -1,0 +1,44 @@
+
+.tour_img img{
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+}
+.tour_img {
+    position: relative;
+}
+.tour_img span{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 0.3rem 0.5rem;
+   
+}
+
+.t-card{
+    width: 600px;
+    height: 700px;
+   
+}
+
+.card-Body{
+    width: 600px;
+    height: 500px;
+   
+}
+
+.edit-btn{
+    background-color: rgb(37, 182, 73)!important;
+    width: 200px;
+    height: 50px;
+    border-radius: 25px!important;
+}
+.del-btn{
+    background-color: rgb(231, 6, 6)!important;
+    width: 200px;
+    border-radius: 25px!important;
+   
+}

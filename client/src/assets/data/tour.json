@@ -1,0 +1,119 @@
+[
+    {
+        "name": "Serengeti Migration Safari, Tanzania",
+        "city": "Arusha",
+        "address": "Serengeti National Park",
+        "distance": "350",
+        "price": 99,
+        "maxGroupSize": 8,
+        "description": "Witness the Great Migration's river crossings and vast herds in the Serengeti.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      },
+      {
+        "name": "Kruger Big Five Adventure, South Africa",
+        "city": "Johannesburg",
+        "address": "Kruger National Park",
+        "distance": "400",
+        "price": 99,
+        "maxGroupSize": 10,
+        "description": "Discover the Big Five and other wildlife in South Africa's premier park.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      },
+      {
+        "name": "Okavango Delta Safari, Botswana",
+        "city": "Gaborone",
+        "address": "Okavango Delta",
+        "distance": "900",
+        "price": 99,
+        "maxGroupSize": 8,
+        "description": "Explore the Okavango Delta waterways and encounter diverse wildlife.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      },
+      {
+        "name": "Maasai Mara Migration, Kenya",
+        "city": "Nairobi",
+        "address": "Maasai Mara National Reserve",
+        "distance": "280",
+        "price": 99,
+        "maxGroupSize": 8,
+        "description": "Experience the dramatic Great Migration and abundant wildlife in Maasai Mara.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      },
+      {
+        "name": "Etosha Wildlife Expedition, Namibia",
+        "city": "Windhoek",
+        "address": "Etosha National Park",
+        "distance": "420",
+        "price": 99,
+        "maxGroupSize": 8,
+        "description": "See diverse wildlife around Etosha's salt pans and waterholes.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      },
+      {
+        "name": "Chobe River Safari, Botswana",
+        "city": "Gaborone",
+        "address": "Chobe National Park",
+        "distance": "1000",
+        "price": 99,
+        "maxGroupSize": 8,
+        "description": "Cruise the Chobe River and witness large elephant herds and other wildlife.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      },  {
+        "name": "Bwindi Gorilla Trek, Uganda",
+        "city": "Kampala",
+        "address": "Bwindi Impenetrable National Park",
+        "distance": "460",
+        "price": 99,
+        "maxGroupSize": 8,
+        "description": "Trek through forests to encounter endangered mountain gorillas in Bwindi.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      },  {
+        "name": "Ngorongoro Crater Safari, Tanzania",
+        "city": "Arusha",
+        "address": "Ngorongoro Crater",
+        "distance": "180",
+        "price": 99,
+        "maxGroupSize": 8,
+        "description": "Explore the world's largest volcanic caldera with a high concentration of wildlife.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      },  {
+        "name": "Pantanal Wildlife Expedition, Brazil",
+        "city": "Brasília",
+        "address": "Pantanal",
+        "distance": "1200",
+        "price": 99,
+        "maxGroupSize": 8,
+        "description": "Navigate the world's largest tropical wetland to see jaguars and caimans.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      },  {
+        "name": "Yellowstone Safari Adventure, USA",
+        "city": "Denver",
+        "address": "Yellowstone National Park",
+        "distance": "800",
+        "price": 99,
+        "maxGroupSize": 8,
+        "description": "Discover Yellowstone's wildlife, geysers, and scenic landscapes in America's first national park.",
+        "reviews": [],
+        "photo": "/tour-images/tour-img02.jpg",
+        "isAvailable": true
+      }
+
+]

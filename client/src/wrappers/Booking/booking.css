@@ -1,0 +1,111 @@
+
+
+.booking{
+    padding: 2rem;
+    border-radius: .5rem;
+    border: 1px solid rgb(229, 231,235);
+    position: sticky;
+    top: 80px;
+}
+
+.booking__top h3{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.booking__top h3 span{
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.booking__top span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.booking__top span span{
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    margin-right: 5px;
+    color: var(--primary-color);
+}
+
+.booking__top{
+    padding-bottom:2rem;
+    border-bottom: 1px solid rgb(229, 231,235) ; 
+}
+
+.booking__form{
+    padding-top: 2rem;
+}
+.booking__form h5{
+    margin-bottom: 1rem;
+}
+.booking__form input{
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: var(--heading-color);
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid rgb(229, 231,235) ; 
+   
+}
+
+.booking__form input:focus{
+    outline: none;
+}
+
+.booking__info-form{
+    padding: 1rem;
+    border: 1px solid rgb(229, 231,235);
+}
+
+.booking__bottom li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.booking__bottom li h5, .booking__bottom  li span{
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.booking__bottom{
+    margin-top: 1rem;
+}
+.total h5, .total span{
+    color: var(--heading-color)!important;
+    font-weight: 700 !important;
+    font-size: 1.1remm !important;
+}
+
+.error-msg{
+    color: #e73c3c!important;
+    font-size: 16px!important;
+    font-weight: 500!important;
+    margin-top: 0px!important;
+    margin-left: 12px!important;
+    margin-bottom:5px!important;
+    text-align: start!important;
+}
+
+input.input-error,select.input-error{
+    border: 5px solid #e73c3c;
+}
+
+.checkbox{
+    height: 22px;
+    width: 15%!important;
+}
+
+label{
+    font-size: 20px;
+}

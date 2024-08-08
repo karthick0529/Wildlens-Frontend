@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+
+h1{
+    font-family: "Montserrat, sans-serif";
+    font-weight: 800!important;
+}
+.ct-card{
+    background-image: url('../assets/images/tour.jpg');
+    background-size:cover;
+}
+
+
+.ct-card-body{
+    background: transparent;
+  
+}
+
+.ct-fc{
+    background-color: transparent!important;
+    border-radius: 15px!important;
+    
+}
+
+.ct-fc:focus{
+    border-color: black!important;
+    border: 3px solid black!important;
+    box-shadow: 0 0 0 .30rem rgba(0, 0, 0, 0.25)!important;
+}
+
+.sub-btn{
+    background-color:transparent!important;
+    border: 1px solid black!important;
+    border-radius: 25px!important;
+    width: 200px!important;
+    height: 60px;
+    color: rgb(0, 0, 0)!important;
+    font-size: 1.5rem!important;
+    font-weight: 800!important;
+}
+
+.sub-btn:hover{
+    background-color:black!important;
+    color: rgb(245, 237, 237)!important;
+}
+.ct-fc::placeholder {
+    color: rgb(0, 0, 0)!important;
+    font-size: 1.4rem!important;
+    font-weight: 1000;
+    text-align: center!important; 
+  }
