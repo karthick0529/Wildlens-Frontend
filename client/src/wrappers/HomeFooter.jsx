@@ -60,7 +60,7 @@ const HomeFooter = () => {
                   <Link to ="#"><RiFacebookCircleLine /></Link>
                 </span>
                 <span>
-                  <Link to ="#"><RiGithubFill  /></Link>
+                  <Link to ="https://github.com/karthick0529"><RiGithubFill  /></Link>
                 </span>
                 <span>
                   <Link to ="#"><RiInstagramLine  /></Link>
@@ -93,7 +93,7 @@ const HomeFooter = () => {
         </ListGroup>
         </Col>
         <Col lg={3}>
-        <h5 className="footer__link-title">Conteact</h5>
+        <h5 className="footer__link-title">Contact</h5>
         <ListGroup className="footer__quick-links">
         
             <ListGroupItem className='ps-0 border-0 d-flex align-items-center gap-3 '>
@@ -101,14 +101,14 @@ const HomeFooter = () => {
                   <span><FiMapPin /></span>
                   Address :
                 </h6>
-                <p className='mb-0 '>Bangalore, Karnataka</p>
+                <p className='mb-0 '>India</p>
             </ListGroupItem>
             <ListGroupItem className='ps-0 border-0 d-flex align-items-center gap-3 '>
                 <h6 className='mb-0 d-flex align-items-center gap-2'>
                   <span><MdOutlineMailOutline /></span>
                   Email :
                 </h6>
-                <p className='mb-0 '>vijay@gmail.com</p>
+                <p className='mb-0 '>karthi@gmail.com</p>
             </ListGroupItem>
             <ListGroupItem className='ps-0 border-0 d-flex align-items-center gap-3 '>
                 <h6 className='mb-0 d-flex align-items-center gap-2'>
@@ -120,7 +120,7 @@ const HomeFooter = () => {
         </ListGroup>
         </Col>
             <Col lg={12} className='text-center'>
-                <p className="copyright">Copyright {year}, design and develop by Vijaya Kumar. All rights reserved.</p>
+                <p className="copyright">Copyright {year}, design and develop by Karthick. All rights reserved.</p>
             </Col>
       </Row>
     </Container>
