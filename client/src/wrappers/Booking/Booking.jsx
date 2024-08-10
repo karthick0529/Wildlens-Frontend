@@ -26,7 +26,7 @@ const Booking = ({ tour, avgRating }) => {
       .then(res=>{
        const sessionId = res.data
         toast.success("Redirecting to Checkout page"),
-        stripe.redirectToCheckout({ sessionId: sessionId.id })
+        Stripe.redirectToCheckout({ sessionId: sessionId.id })
                 // window.location.href = res.data.session.url;
       })
       .catch(err => {
