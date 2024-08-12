@@ -28,6 +28,6 @@ export const adminServices = {
         return await protectedInstance.delete(`/tours/${id}`)
      },
      getBookings: async() => {
-        return await protectedInstance.get("/bookings")
+        return await protectedInstance.get("/bookings/")
     },
 } 

@@ -3,40 +3,65 @@ import "./booking.css";
 import { FaStar } from "react-icons/fa";
 import { RiCloseLine } from "react-icons/ri";
 import { useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { bookingSchema } from "../../formikSchema/schema";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext";
 import { userServices } from "../../Instance/userServices";
-import Stripe from "stripe";
 
 const Booking = ({ tour, avgRating }) => {
   const { id } = useParams();
   const { price, reviews } = tour;
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
-  const onSubmit = async () => {
-    if(!user || user===null || user===undefined){
-      toast.error('Please Login')
-    }else{
-    try {
-
-      userServices.createBooking(values,id)
-      .then(res=>{
-       const sessionId = res.data
-        toast.success("Redirecting to Checkout page"),
-        Stripe.redirectToCheckout({ sessionId: sessionId.id })
-                // window.location.href = res.data.session.url;
-      })
-      .catch(err => {
-        toast.error(err)
-        console.log(err)
-      })
-    } catch (error) {
-      toast.error(error.message);
+  const onSubmit = async (values) => {
+    if (!user) {
+        toast.error("Please Login");
+        return;
     }
-  }}
+
+    try {
+        const { data } = await userServices.createBooking(values, id);
+
+        if (window.Razorpay) {
+            const paymentOptions = {
+                key: data.key_id,
+                amount: data.order.amount,
+                currency: data.order.currency,
+                name: "Tour Booking",
+                description: `Payment for booking ${data.bookingId}`,
+                order_id: data.order.id,
+                handler: async (response) => {
+                    try {
+                        const verifyRes = await userServices.verifyPayment(response);
+                        if (verifyRes.data.message === "Payment verified successfully") {
+                            toast.success("Payment successful and booking confirmed!");
+                        } else {
+                            toast.error("Payment verification failed.");
+                        }
+                    } catch (error) {
+                        toast.error("Payment verification failed.");
+                        console.error(error);
+                    }
+                },
+                prefill: {
+                    name: values.fullName,
+                    email: user.email,
+                    contact: values.phone,
+                },
+            };
+
+            const paymentObject = new window.Razorpay(paymentOptions);
+            paymentObject.open();
+        } else {
+            toast.error("Razorpay SDK failed to load.");
+        }
+    } catch (error) {
+        toast.error("Booking creation failed.");
+        console.error(error);
+    }
+};
 
   const { values, handleBlur, handleChange, touched, errors, handleSubmit } =
     useFormik({
@@ -44,27 +69,31 @@ const Booking = ({ tour, avgRating }) => {
         fullName: "",
         phone: "",
         bookAt: "",
-        guestSize:1,
-        companion:false,
+        guestSize: 1,
+        companion: false,
       },
       validationSchema: bookingSchema,
       onSubmit,
     });
-    let companionFee=0;
-    if(values.companion==true) {
-      companionFee = 6000;
-    }
-    
-    const serviceFee = 240;
-    const totalAmount = Number(price) * Number(values.guestSize) + Number(serviceFee) + Number(companionFee);
-    
+
+  let companionFee = 0;
+  if (values.companion) {
+    companionFee = 6000;
+  }
+
+  const serviceFee = 240;
+  const totalAmount =
+    Number(price) * Number(values.guestSize) +
+    Number(serviceFee) +
+    Number(companionFee);
+
   return (
     <div className="booking">
       <div className="booking__top d-flex align-items-center justify-content-between">
         <h3>
-        ₹{price} <span>/per Person</span>
+          ₹{price} <span>/per Person</span>
         </h3>
-        <span className="rating d-flex align-items-center  ">
+        <span className="rating d-flex align-items-center">
           <span>
             <FaStar />
           </span>
@@ -84,11 +113,11 @@ const Booking = ({ tour, avgRating }) => {
               value={values.fullName}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={
-                errors.fullName && touched.fullName ? "input-error" : ""
-              }
+              className={errors.fullName && touched.fullName ? "input-error" : ""}
             />
-            {errors.fullName && touched.fullName && <p className='error-msg'>{errors.fullName}</p>}
+            {errors.fullName && touched.fullName && (
+              <p className="error-msg">{errors.fullName}</p>
+            )}
           </FormGroup>
           <FormGroup>
             <input
@@ -101,10 +130,11 @@ const Booking = ({ tour, avgRating }) => {
               onBlur={handleBlur}
               className={errors.phone && touched.phone ? "input-error" : ""}
             />
-            {errors.phone && touched.phone && <p className='error-msg'>{errors.phone}</p>}
-
+            {errors.phone && touched.phone && (
+              <p className="error-msg">{errors.phone}</p>
+            )}
           </FormGroup>
-          <FormGroup >
+          <FormGroup>
             <input
               type="date"
               placeholder=""
@@ -115,9 +145,11 @@ const Booking = ({ tour, avgRating }) => {
               onBlur={handleBlur}
               className={errors.bookAt && touched.bookAt ? "input-error" : ""}
             />
-            {errors.bookAt && touched.bookAt && <p className='error-msg'>{errors.bookAt}</p>}
-            </FormGroup>
-            <FormGroup >
+            {errors.bookAt && touched.bookAt && (
+              <p className="error-msg">{errors.bookAt}</p>
+            )}
+          </FormGroup>
+          <FormGroup>
             <input
               type="number"
               placeholder="Guest"
@@ -126,24 +158,21 @@ const Booking = ({ tour, avgRating }) => {
               value={values.guestSize}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={
-                errors.guestSize && touched.guestSize ? "input-error" : ""
-              } />
-            {errors.guestSize && touched.guestSize && <p className='error-msg'>{errors.guestSize}</p>}
-
+              className={errors.guestSize && touched.guestSize ? "input-error" : ""}
+            />
+            {errors.guestSize && touched.guestSize && (
+              <p className="error-msg">{errors.guestSize}</p>
+            )}
           </FormGroup>
-          <FormGroup >
-          
+          <FormGroup>
             <input
               type="checkbox"
-              id="companion"  
+              id="companion"
               onChange={handleChange}
               className="checkbox my-3"
               value={values.companion}
             />
-            
-            <label  htmlFor="companion">Do You Want Companion</label>
-            
+            <label htmlFor="companion">Do You Want Companion</label>
           </FormGroup>
         </Form>
       </div>
@@ -152,15 +181,19 @@ const Booking = ({ tour, avgRating }) => {
         <ListGroup>
           <li className="border-0 px-0 li">
             <h5 className="d-flex align-items-center gap-1">
-            ₹{price} <RiCloseLine /> 1 person
+              ₹{price} <RiCloseLine /> 1 person
             </h5>
             <span>₹{price}</span>
           </li>
 
-        {values.companion == true? <li className="border-0 px-0 li">
-        <h5>Companion Charge</h5>
-        <span>₹{companionFee}</span>
-      </li> : "" }
+          {values.companion ? (
+            <li className="border-0 px-0 li">
+              <h5>Companion Charge</h5>
+              <span>₹{companionFee}</span>
+            </li>
+          ) : (
+            ""
+          )}
 
           <li className="border-0 px-0 li">
             <h5>Service Charge</h5>
@@ -171,8 +204,6 @@ const Booking = ({ tour, avgRating }) => {
             <h5>Total</h5>
             <span>₹{totalAmount}</span>
           </li>
-
-        
         </ListGroup>
 
         <Button className="btn primary__btn w-100 mt-4" onClick={handleSubmit}>

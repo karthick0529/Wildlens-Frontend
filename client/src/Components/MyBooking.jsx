@@ -17,18 +17,12 @@ const MyBooking = () => {
     const fetchBookings = async () => {
       setLoading(true);
       try {
-        userServices
-          .getMyBookings()
-          .then((res) => {
-            setBookings(res.data.userBooking);
-            setLoading(false);
-          })
-          .catch((err) => {
-            toast.error(err.message);
-            setLoading(false);
-          });
-      } catch (error) {
-        setError(error.message);
+        const res = await userServices.getMyBookings(); // Use getMyBookings instead of verifyPayment
+        setBookings(res.data.userBooking);
+        setLoading(false);
+      } catch (err) {
+        toast.error(err.message);
+        setError(err.message);
         setLoading(false);
       }
     };
