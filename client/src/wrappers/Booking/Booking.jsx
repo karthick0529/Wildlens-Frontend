@@ -17,55 +17,59 @@ const Booking = ({ tour, avgRating }) => {
 
   const onSubmit = async (values) => {
     if (!user) {
-        toast.error("Please Login");
-        return;
+      toast.error("Please Login");
+      return;
     }
 
     try {
-        const { data } = await userServices.createBooking(values, id);
+      // Create Razorpay order and booking
+      const { data } = await userServices.createBooking({ 
+        tourId: id, 
+        amount: totalAmount, 
+        currency: "INR" 
+      });
 
-        if (window.Razorpay) {
-            const paymentOptions = {
-                key: data.key_id,
-                amount: data.order.amount,
-                currency: data.order.currency,
-                name: "Tour Booking",
-                description: `Payment for booking ${data.bookingId}`,
-                order_id: data.order.id,
-                handler: async (response) => {
-                    try {
-                        const verifyRes = await userServices.verifyPayment(response);
-                        if (verifyRes.data.message === "Payment verified successfully") {
-                            toast.success("Payment successful and booking confirmed!");
-                        } else {
-                            toast.error("Payment verification failed.");
-                        }
-                    } catch (error) {
-                        toast.error("Payment verification failed.");
-                        console.error(error);
-                    }
-                },
-                prefill: {
-                    name: values.fullName,
-                    email: user.email,
-                    contact: values.phone,
-                },
-                theme: {
-                    color: "#3399cc"
-                }
-            };
+      if (window.Razorpay) {
+        const paymentOptions = {
+          key: data.key_id,
+          amount: data.amount,
+          currency: data.currency,
+          name: "Tour Booking",
+          description: `Payment for booking ${id}`,
+          order_id: data.id,
+          handler: async (response) => {
+            try {
+              const verifyRes = await userServices.verifyPayment(response);
+              if (verifyRes.data.message === "Payment verified successfully") {
+                toast.success("Payment successful and booking confirmed!");
+              } else {
+                toast.error("Payment verification failed.");
+              }
+            } catch (error) {
+              toast.error("Payment verification failed.");
+              console.error(error);
+            }
+          },
+          prefill: {
+            name: values.fullName,
+            email: user.email,
+            contact: values.phone,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
 
-            const paymentObject = new window.Razorpay(paymentOptions);
-            paymentObject.open();
-        } else {
-            toast.error("Razorpay SDK failed to load.");
-        }
+        const paymentObject = new window.Razorpay(paymentOptions);
+        paymentObject.open();
+      } else {
+        toast.error("Razorpay SDK failed to load.");
+      }
     } catch (error) {
-        toast.error("Booking creation failed.");
-        console.error(error);
+      toast.error("Booking creation failed.");
+      console.error(error);
     }
-};
-
+  };
 
   const { values, handleBlur, handleChange, touched, errors, handleSubmit } =
     useFormik({

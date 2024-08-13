@@ -6,19 +6,19 @@ import { userServices } from "../Instance/userServices";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { RiseLoader } from "react-spinners";
-import bookingImage from "../assets/images/booking.jpg"; // Import the image
+import bookingImage from "../assets/images/booking.jpg";
 
 const MyBooking = () => {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchBookings = async () => {
       setLoading(true);
       try {
-        const res = await userServices.getMyBookings(); // Use getMyBookings instead of verifyPayment
-        setBookings(res.data.userBooking);
+        const res = await userServices.getMyBookings();
+        setBookings(res.data.userBookings);
         setLoading(false);
       } catch (err) {
         toast.error(err.message);
@@ -34,55 +34,45 @@ const MyBooking = () => {
   return (
     <>
       {loading && (
-        <div className="text-center pt-5 mt-5">
-          <RiseLoader color="#135D66" />
+        <div className="loading-container">
+          <RiseLoader color="#36d7b7" />
         </div>
       )}
-      {error && <h4 className="text-center pt-5 mt-5">{error}</h4>}
-      {!loading && !error && bookings.length === 0 && (
-        <h1 className="text-center pt-5 mt-5">Your Booking is Empty</h1>
+
+      {error && (
+        <div className="error-container">
+          <p>Error: {error}</p>
+        </div>
       )}
+
+      {!loading && !error && bookings.length === 0 && (
+        <div className="empty-container">
+          <img src={bookingImage} alt="Booking" />
+          <p>Your booking list is empty.</p>
+        </div>
+      )}
+
       {!loading && !error && bookings.length > 0 && (
-        <Container className="mt-5">
-          <h1 className="text-center my-4">Your Booking</h1>
+        <Container>
           <Row>
-            {bookings.map((booking, index) => (
-              <Col lg={4} sm={12} md={6} key={index} className="my-4">
-                <div
-                  className="tour__card"
-                  style={{
-                    backgroundImage: `url(${bookingImage})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    borderRadius: "20px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Card className="bg-transparent border-0">
-                    <CardBody className="cardBody text-start">
-                      <div className="mt-3 b-card">
-                        <span className="fw-bold">Tour Name: </span>
-                        {booking.tourName}
-                      </div>
-                      <div className="mt-3 b-card">
-                        <span className="fw-bold">Name: </span>
-                        {booking.fullName}
-                      </div>
-                      <div className="mt-3 b-card">
-                        <span className="fw-bold">Email: </span>
-                        {booking.userEmail}
-                      </div>
-                      <div className="mt-3 b-card">
-                        <span className="fw-bold">Guest Size: </span>
-                        {booking.guestSize}
-                      </div>
-                      <div className="mt-3 b-card">
-                        <span className="fw-bold">Booking Date: </span>
-                        {formatBookingDate(booking.bookAt)}
-                      </div>
-                    </CardBody>
-                  </Card>
-                </div>
+            {bookings.map((booking) => (
+              <Col md={4} key={booking._id}>
+                <Card className="booking-card">
+                  <Card.Img variant="top" src={booking.tourImage} />
+                  <CardBody>
+                    <Card.Title>{booking.tourName}</Card.Title>
+                    <Card.Text>
+                      <strong>Booking Date:</strong>{" "}
+                      {formatBookingDate(booking.bookAt)}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Guests:</strong> {booking.guestSize}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Total Price:</strong> {booking.totalPrice}
+                    </Card.Text>
+                  </CardBody>
+                </Card>
               </Col>
             ))}
           </Row>
