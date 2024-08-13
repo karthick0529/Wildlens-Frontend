@@ -15,11 +15,28 @@ export const userServices = {
     return await protectedInstance.get('/users/logout');
   },
 
-  addReview: async (reviewText, tourRating, id) => {
-    return await protectedInstance.post(`/review/${id}`, {
+  // CRUD operations for reviews
+  addReview: async (reviewText, rating, tourId) => {
+    return await protectedInstance.post(`/reviews/review/${tourId}`, {
       reviewText,
-      tourRating,
+      rating,
     });
+  },
+
+  getReviews: async (tourId) => {
+    return await instance.get(`/reviews/${tourId}`);
+  },
+
+  updateReview: async (reviewId, reviewText, rating) => {
+    return await protectedInstance.put(`/reviews/review/${reviewId}`, {
+      reviewText,
+      rating,
+    });
+  },
+  
+
+  deleteReview: async (reviewId) => {
+    return await protectedInstance.delete(`/reviews/review/${reviewId}`);
   },
 
   createBooking: async (values, id) => {

@@ -18,75 +18,56 @@ const Bookings = () => {
   ];
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false); // Set initial loading state to false
 
-  useEffect(()=>{
-    const bookings = async() => {
-        setLoading(true)
-        try {
-            
-            adminServices.getBookings()
-            .then((res) =>{
-                setBookings(res.data.booking);
-                setLoading(false)
-                
-            }).catch((err)=>{
-                toast.error(err.message)
-            })
-
-        } catch (error) {
-            setError(error.message);
-            setLoading(false);
-        }
+  useEffect(() => {
+    const fetchBookings = async () => {
+      setLoading(true);
+      try {
+        const res = await adminServices.getBookings();
+        setBookings(res.data.booking);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+        toast.error(error.message);
+      }
     };
- bookings();
-  },[]);
-
- 
-  const booking_date = moment(bookings.bookAt).format('D MMM YYYY')
+    fetchBookings();
+  }, []);
 
   return (
     <>
       <h1 className="text-center mt-4">Bookings</h1>
       {loading && <div className="text-center pt-5 mt-5"><RiseLoader color="#135D66" /></div>}
-        {error && <h4 className="text-center">{error}</h4>}
-        {!loading && !error && (
-      <Container className="tab ">
-     
-        <table className="table table-dark table-striped mt-3 text-center">
-          <thead>
-            <tr>
-                {thead.map((item,index)=>(
-                    <th scope="col" key={index}>{item.head}</th>
+      {error && <h4 className="text-center">{error}</h4>}
+      {!loading && !error && (
+        <Container className="tab">
+          <table className="table table-dark table-striped mt-3 text-center">
+            <thead>
+              <tr>
+                {thead.map((item, index) => (
+                  <th scope="col" key={index}>{item.head}</th>
                 ))}
-            </tr>
-          </thead>
-          <tbody>
-          {bookings.map((booking,index)=>(
-            <tr key={index}>
-              <td scope="row">{index+1}</td>
-              <td>{booking.tourName}</td>
-              <td>{booking_date}</td>
-              <td>{booking.fullName}</td>
-              <td>{booking.guestSize}</td>
-              <td>{booking.userEmail}</td>
-              <td>{booking.phone}</td>
-              <td>Karthick</td>
               </tr>
-                
+            </thead>
+            <tbody>
+              {bookings.map((booking, index) => (
+                <tr key={booking._id}>
+                  <td scope="row">{index + 1}</td>
+                  <td>{booking.tourName}</td>
+                  <td>{moment(booking.bookAt).format('D MMM YYYY')}</td>
+                  <td>{booking.fullName}</td>
+                  <td>{booking.guestSize}</td>
+                  <td>{booking.userEmail}</td>
+                  <td>{booking.phone}</td>
+                  <td>Karthick</td> {/* You may want to dynamically render this */}
+                </tr>
               ))}
-               </tbody>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-           
-        </table>
-      
-      </Container>
-        )}
+            </tbody>
+          </table>
+        </Container>
+      )}
     </>
   );
 };

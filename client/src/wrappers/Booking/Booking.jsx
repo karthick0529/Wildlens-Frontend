@@ -50,6 +50,9 @@ const Booking = ({ tour, avgRating }) => {
                     email: user.email,
                     contact: values.phone,
                 },
+                theme: {
+                    color: "#3399cc"
+                }
             };
 
             const paymentObject = new window.Razorpay(paymentOptions);
@@ -62,6 +65,7 @@ const Booking = ({ tour, avgRating }) => {
         console.error(error);
     }
 };
+
 
   const { values, handleBlur, handleChange, touched, errors, handleSubmit } =
     useFormik({
