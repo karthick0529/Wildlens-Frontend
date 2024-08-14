@@ -3,12 +3,7 @@ import { Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { IoMenuSharp } from "react-icons/io5";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useNavigate,
-} from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import logoImg from "../assets/images/logo.png";
 import "../wrappers/homeNav.css";
 import { userServices } from "../Instance/userServices";
@@ -37,43 +32,40 @@ const DashBoard = () => {
   const { user, dispatch } = useContext(AuthContext);
 
   const logout = (e) => {
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: "LOGOUT" });
 
-    userServices.logout().then(res => {
-      toast.success(res.data.message);
+    userServices
+      .logout()
+      .then((res) => {
+        toast.success(res.data.message);
 
-      setTimeout(() => {
-        navigate("/home");
-      }, 5000);
-    })
-    .catch(err => {
-      toast.error(err.message);
-    });
+        setTimeout(() => {
+          navigate("/home");
+        }, 5000);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
 
-  const stickyHeaderFunc = () => {
+  useEffect(() => {
     const handleScroll = () => {
       if (
         document.body.scrollTop > 80 ||
         document.documentElement.scrollTop > 80
       ) {
-        headerRef.current.classList.add("sticky__header");
+        headerRef.current?.classList.add("sticky__header");
       } else {
-        headerRef.current.classList.remove("sticky__header");
+        headerRef.current?.classList.remove("sticky__header");
       }
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    // Clean up event listener on component unmount
-    return () => window.removeEventListener("scroll", handleScroll);
-  };
-
-  useEffect(() => {
-    stickyHeaderFunc();
-
-    // Clean up function to remove the event listener
-    return () => window.removeEventListener("scroll", stickyHeaderFunc);
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const toggleMenu = () => {
@@ -113,7 +105,9 @@ const DashBoard = () => {
                   {user ? (
                     <>
                       <h5 className="mb-0">{user.userName}</h5>
-                      <Button className="btn primary__btn" onClick={logout}>Logout</Button>
+                      <Button className="btn primary__btn" onClick={logout}>
+                        Logout
+                      </Button>
                     </>
                   ) : (
                     <>

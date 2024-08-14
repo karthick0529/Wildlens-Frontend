@@ -58,24 +58,24 @@ const MyBooking = () => {
               <div className="tour__card">
                 <Card>
                   <Card.Body className="cardBody">
-                    <div className="text-center mt-3 b-card">
-                      <span>Tour Name: </span>
+                    <div className="text-left mt-3 b-card">
+                      <span className="card-title">Tour Name: </span>
                       {booking.tourName || "N/A"}
                     </div>
-                    <div className="text-center mt-3 b-card">
-                      <span>Name: </span>
+                    <div className="text-left mt-3 b-card">
+                      <span className="card-title">Name: </span>
                       {booking.fullName || "N/A"}
                     </div>
-                    <div className="text-center mt-3 b-card">
-                      <span>Email: </span>
+                    <div className="text-left mt-3 b-card">
+                      <span className="card-title">Email: </span>
                       {booking.userEmail || "N/A"}
                     </div>
-                    <div className="text-center mt-3 b-card">
-                      <span>Guest Size: </span>
+                    <div className="text-left mt-3 b-card">
+                      <span className="card-title">Guest Size: </span>
                       {booking.guestSize || "N/A"}
                     </div>
-                    <div className="text-center mt-3 b-card">
-                      <span>Booking Date: </span>
+                    <div className="text-left mt-3 b-card">
+                      <span className="card-title">Booking Date: </span>
                       {bookingDate}
                     </div>
                   </Card.Body>

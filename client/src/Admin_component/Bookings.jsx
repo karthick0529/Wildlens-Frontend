@@ -16,7 +16,7 @@ const Bookings = () => {
     { head: "Phone" },
     { head: "Companion" },
   ];
-  
+
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
@@ -26,7 +26,8 @@ const Bookings = () => {
       setLoading(true);
       try {
         const res = await adminServices.getBookings();
-        setBookings(res.data.booking || []);
+        console.log(res.data); // Debugging: Check the structure of the API response
+        setBookings(res.data.bookings || []); // Assuming 'bookings' is the correct key
         setLoading(false);
       } catch (err) {
         toast.error(err.message);
@@ -68,7 +69,7 @@ const Bookings = () => {
                   <td>{booking.guestSize}</td>
                   <td>{booking.userEmail}</td>
                   <td>{booking.phone}</td>
-                  <td>Karthick</td> {/* Example companion name, replace with actual data */}
+                  <td>{booking.companion || "No Companion"}</td>
                 </tr>
               ))}
             </tbody>
