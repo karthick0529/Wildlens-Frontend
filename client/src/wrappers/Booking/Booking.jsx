@@ -22,11 +22,11 @@ const Booking = ({ tour, avgRating }) => {
     }
 
     try {
-      // Create Razorpay order and booking
-      const { data } = await userServices.createBooking({ 
-        tourId: id, 
-        amount: totalAmount, 
-        currency: "INR" 
+      // Create Razorpay order and initiate payment
+      const { data } = await userServices.createBooking({
+        tourId: id,
+        amount: totalAmount,
+        currency: "INR",
       });
 
       if (window.Razorpay) {
@@ -41,6 +41,21 @@ const Booking = ({ tour, avgRating }) => {
             try {
               const verifyRes = await userServices.verifyPayment(response);
               if (verifyRes.data.message === "Payment verified successfully") {
+                // Payment successful, now create the booking
+                const bookingDetails = {
+                  userId: user._id,
+                  userEmail: user.email,
+                  tourId: id,
+                  tourName: tour.name,
+                  fullName: values.fullName,
+                  guestSize: values.guestSize,
+                  phone: values.phone,
+                  bookAt: values.bookAt,
+                  totalPrice: totalAmount,
+                  companion: values.companion,
+                };
+
+                await userServices.createUserBooking(bookingDetails);
                 toast.success("Payment successful and booking confirmed!");
               } else {
                 toast.error("Payment verification failed.");
@@ -145,7 +160,6 @@ const Booking = ({ tour, avgRating }) => {
           <FormGroup>
             <input
               type="date"
-              placeholder=""
               id="bookAt"
               required
               value={values.bookAt}

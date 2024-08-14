@@ -43,11 +43,15 @@ export const userServices = {
     return await protectedInstance.post('/bookings/razorpay/order', values);
   },
 
-  getMyBookings: async () => {
-    return await protectedInstance.get('/bookings/user');
-  },
-
   verifyPayment: async (response) => {
     return await protectedInstance.post('/bookings/razorpay/verify', response);
+  },
+
+  createUserBooking: async (bookingDetails) => {
+    return await protectedInstance.post('/bookings/createbooking', bookingDetails);
+  },
+
+  getMyBookings: async () => {
+    return await protectedInstance.get('/bookings/user');
   },
 };

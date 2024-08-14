@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, Container, Row, Col } from "react-bootstrap";
+import { Card, Container, Row, Col } from "react-bootstrap";
 import "../shared/tourCard.css";
 import "../styles/mybooking.css";
 import { userServices } from "../Instance/userServices";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { RiseLoader } from "react-spinners";
-import bookingImage from "../assets/images/booking.jpg";
 
 const MyBooking = () => {
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState([]); // Initialize bookings as an empty array
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -18,67 +17,75 @@ const MyBooking = () => {
       setLoading(true);
       try {
         const res = await userServices.getMyBookings();
-        setBookings(res.data.userBookings);
-        setLoading(false);
+        setBookings(res.data.userBookings || []); // Ensure bookings is always an array
       } catch (err) {
         toast.error(err.message);
         setError(err.message);
+      } finally {
         setLoading(false);
       }
     };
     fetchBookings();
   }, []);
 
-  const formatBookingDate = (date) => moment(date).format("D MMM YYYY");
+  if (loading) {
+    return (
+      <div className="text-center pt-5 mt-5">
+        <RiseLoader color="#135D66" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <h4 className="text-center pt-5 mt-5">{error}</h4>;
+  }
+
+  if (!loading && bookings.length === 0) {
+    return <h1 className="text-center pt-5 mt-5">Your Booking is Empty</h1>;
+  }
 
   return (
-    <>
-      {loading && (
-        <div className="loading-container">
-          <RiseLoader color="#36d7b7" />
-        </div>
-      )}
+    <Container className="mt-5">
+      <h1 className="text-center my-4">Your Booking</h1>
+      <Row>
+        {bookings.map((booking, index) => {
+          const bookingDate = booking.bookAt
+            ? moment(booking.bookAt).format("D MMM YYYY")
+            : "Date not available";
 
-      {error && (
-        <div className="error-container">
-          <p>Error: {error}</p>
-        </div>
-      )}
-
-      {!loading && !error && bookings.length === 0 && (
-        <div className="empty-container">
-          <img src={bookingImage} alt="Booking" />
-          <p>Your booking list is empty.</p>
-        </div>
-      )}
-
-      {!loading && !error && bookings.length > 0 && (
-        <Container>
-          <Row>
-            {bookings.map((booking) => (
-              <Col md={4} key={booking._id}>
-                <Card className="booking-card">
-                  <Card.Img variant="top" src={booking.tourImage} />
-                  <CardBody>
-                    <Card.Title>{booking.tourName}</Card.Title>
-                    <Card.Text>
-                      <strong>Booking Date:</strong>{" "}
-                      {formatBookingDate(booking.bookAt)}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Guests:</strong> {booking.guestSize}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Total Price:</strong> {booking.totalPrice}
-                    </Card.Text>
-                  </CardBody>
+          return (
+            <Col lg={4} sm={12} md={6} key={index} className="my-4">
+              <div className="tour__card">
+                <Card>
+                  <Card.Body className="cardBody">
+                    <div className="text-center mt-3 b-card">
+                      <span>Tour Name: </span>
+                      {booking.tourName || "N/A"}
+                    </div>
+                    <div className="text-center mt-3 b-card">
+                      <span>Name: </span>
+                      {booking.fullName || "N/A"}
+                    </div>
+                    <div className="text-center mt-3 b-card">
+                      <span>Email: </span>
+                      {booking.userEmail || "N/A"}
+                    </div>
+                    <div className="text-center mt-3 b-card">
+                      <span>Guest Size: </span>
+                      {booking.guestSize || "N/A"}
+                    </div>
+                    <div className="text-center mt-3 b-card">
+                      <span>Booking Date: </span>
+                      {bookingDate}
+                    </div>
+                  </Card.Body>
                 </Card>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      )}
-    </>
+              </div>
+            </Col>
+          );
+        })}
+      </Row>
+    </Container>
   );
 };
 
