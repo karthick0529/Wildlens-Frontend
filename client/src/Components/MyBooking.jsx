@@ -6,6 +6,7 @@ import { userServices } from "../Instance/userServices";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { RiseLoader } from "react-spinners";
+import backgroundImage from "..//assets/images/booking.jpg"; // Import the background image
 
 const MyBooking = () => {
   const [bookings, setBookings] = useState([]); // Initialize bookings as an empty array
@@ -56,7 +57,7 @@ const MyBooking = () => {
           return (
             <Col lg={4} sm={12} md={6} key={index} className="my-4">
               <div className="tour__card">
-                <Card>
+                <Card style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                   <Card.Body className="cardBody">
                     <div className="text-left mt-3 b-card">
                       <span className="card-title">Tour Name: </span>
