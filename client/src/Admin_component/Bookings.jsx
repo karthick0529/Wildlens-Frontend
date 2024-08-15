@@ -14,7 +14,7 @@ const Bookings = () => {
     { head: "Guest Size" },
     { head: "Email" },
     { head: "Phone" },
-    { head: "Companion" },
+    { head: "Companion(s)" },
   ];
 
   const [bookings, setBookings] = useState([]);
@@ -26,7 +26,7 @@ const Bookings = () => {
       setLoading(true);
       try {
         const res = await adminServices.getBookings();
-        console.log(res.data); // Debugging: Check the structure of the API response
+        console.log(res.data.bookings); // Debugging: Check the structure of the API response
         setBookings(res.data.bookings || []); // Assuming 'bookings' is the correct key
         setLoading(false);
       } catch (err) {
@@ -63,13 +63,17 @@ const Bookings = () => {
               {bookings.map((booking, index) => (
                 <tr key={index}>
                   <td scope="row">{index + 1}</td>
-                  <td>{booking.tourName}</td>
+                  <td>{booking.tourId?.name || "N/A"}</td> 
                   <td>{moment(booking.bookAt).format("D MMM YYYY")}</td>
                   <td>{booking.fullName}</td>
                   <td>{booking.guestSize}</td>
                   <td>{booking.userEmail}</td>
                   <td>{booking.phone}</td>
-                  <td>{booking.companion || "No Companion"}</td>
+                  <td>
+                    {Array.isArray(booking.companion) && booking.companion.length > 0
+                      ? booking.companion.join(", ")
+                      : "No Companion"}
+                  </td>
                 </tr>
               ))}
             </tbody>

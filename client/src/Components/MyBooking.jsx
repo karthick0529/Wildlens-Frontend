@@ -61,7 +61,7 @@ const MyBooking = () => {
                   <Card.Body className="cardBody">
                     <div className="text-left mt-3 b-card">
                       <span className="card-title">Tour Name: </span>
-                      {booking.tourName || "N/A"}
+                      {booking.tourId?.name || "N/A"}
                     </div>
                     <div className="text-left mt-3 b-card">
                       <span className="card-title">Name: </span>
