@@ -1,27 +1,23 @@
 import axios from "axios";
-import { REACT_APP_API_URL } from "../utils/config";
 
-const baseURL = REACT_APP_API_URL
+// Define the baseURL for your API
+const baseURL = "https://wildlens-backend-cm9t.onrender.com/api";
 
-     const instance = axios.create({
-      baseURL,
-   timeout:5000,
-   
-   headers:{
-    'Content-Type' : "application/json",
-   },
-   
-   
+const instance = axios.create({
+  baseURL,
+  timeout: 5000,
+  headers: {
+    'Content-Type': "application/json",
+  },
 });
 
-   const protectedInstance = axios.create({
-      baseURL,
-    timeout:5000,
-    headers:{
-     'Content-Type' : "application/json",
-    },
-    
-     withCredentials:true,
- });
+const protectedInstance = axios.create({
+  baseURL,
+  timeout: 5000,
+  headers: {
+    'Content-Type': "application/json",
+  },
+  withCredentials: true,
+});
 
- export {instance, protectedInstance };
+export { instance, protectedInstance };
