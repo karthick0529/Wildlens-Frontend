@@ -20,38 +20,69 @@ export const userServices = {
     return await protectedInstance.post(`/reviews/review/${tourId}`, {
       reviewText,
       rating,
+    }, {
+      headers: {
+        "token": localStorage.getItem("token"),
+      }
     });
   },
 
   getReviews: async (tourId) => {
-    return await instance.get(`/reviews/${tourId}`);
+    return await instance.get(`/reviews/${tourId}`, {
+      headers: {
+        "token": localStorage.getItem("token"),
+      }
+    });
   },
 
   updateReview: async (reviewId, reviewText, rating) => {
     return await protectedInstance.put(`/reviews/review/${reviewId}`, {
       reviewText,
       rating,
+    }, {
+      headers: {
+        "token": localStorage.getItem("token"),
+      }
     });
   },
-  
 
   deleteReview: async (reviewId) => {
-    return await protectedInstance.delete(`/reviews/review/${reviewId}`);
+    return await protectedInstance.delete(`/reviews/review/${reviewId}`, {
+      headers: {
+        "token": localStorage.getItem("token"),
+      }
+    });
   },
 
   createBooking: async (values, id) => {
-    return await protectedInstance.post('/bookings/razorpay/order', values);
+    return await protectedInstance.post('/bookings/razorpay/order', values, {
+      headers: {
+        "token": localStorage.getItem("token"),
+      }
+    });
   },
 
   verifyPayment: async (response) => {
-    return await protectedInstance.post('/bookings/razorpay/verify', response);
+    return await protectedInstance.post('/bookings/razorpay/verify', response, {
+      headers: {
+        "token": localStorage.getItem("token"),
+      }
+    });
   },
 
   createUserBooking: async (bookingDetails) => {
-    return await protectedInstance.post('/bookings/createbooking', bookingDetails);
+    return await protectedInstance.post('/bookings/createbooking', bookingDetails, {
+      headers: {
+        "token": localStorage.getItem("token"),
+      }
+    });
   },
 
   getMyBookings: async () => {
-    return await protectedInstance.get('/bookings/user');
+    return await protectedInstance.get('/bookings/user', {
+      headers: {
+        "token": localStorage.getItem("token"),
+      }
+    });
   },
 };

@@ -25,6 +25,7 @@ const Login = () => {
               userServices.login(values)
                       .then(res => {
                         toast.success (res.data.message);
+                        localstorage.setItem('token', res.data.token)
                         dispatch({type:'LOGIN_SUCCESS', payload:res.data.data});
                         actions.resetForm()
                         navigate('/')
