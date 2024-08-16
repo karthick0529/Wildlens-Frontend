@@ -2,6 +2,7 @@ import axios from "axios";
 
 // Define the baseURL for your API
 const baseURL = "https://wildlens-backend-cm9t.onrender.com/api";
+// const baseURL = "http://localhost:5000/api";
 
 const instance = axios.create({
   baseURL,

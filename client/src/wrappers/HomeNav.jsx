@@ -38,21 +38,18 @@ const HomeNav = () => {
   const navigate = useNavigate()
   const {user, dispatch} = useContext(AuthContext)
 
-  const logout =(e) => {
-   
-    dispatch({type:'LOGOUT'})
-    
-    userServices.logout().then(res => {
-      toast.success(res.data.message);
-
-      navigate("/home")
-     
-  })
-  .catch(err => {
-    toast.error(err.message)
-  })
-
-}
+  const logout = (e) => {
+    userServices.logout()
+      .then(res => {
+        dispatch({ type: 'LOGOUT' });
+        toast.success(res.data.message);
+        localStorage.removeItem('token');
+        navigate("/home");
+      })
+      .catch(err => {
+        toast.error(err.response?.data?.message || "Logout failed");
+      });
+  };
  
   const stickyHeaderFunc = () => {
     window.addEventListener("scroll", () => {

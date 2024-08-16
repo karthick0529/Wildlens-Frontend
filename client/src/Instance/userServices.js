@@ -12,7 +12,16 @@ export const userServices = {
   },
 
   logout: async () => {
-    return await protectedInstance.get('/users/logout');
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No token found");
+    }
+  
+    return await protectedInstance.get('/users/logout', {
+      headers: {
+        "token": localStorage.getItem("token"),
+      }
+    });
   },
 
   // CRUD operations for reviews
