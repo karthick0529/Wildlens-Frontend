@@ -32,7 +32,8 @@ This repository contains the frontend of a functional WildLens Tour booking plat
 
 - **Body Background Image** : 
 
-1. Sometimes user might face the blank white space while login/signup its because of the body background image is not loaded. 2. This might happen because user not using the latest version of browser.
+1. Sometimes user might face the blank white space while login/signup its because of the body background image is not loaded. 
+2. This might happen because user not using the latest version of browser.
 
 ## 🌐 Responsive Design
 
